@@ -7,10 +7,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHdd } from "@fortawesome/free-solid-svg-icons";
 import { saveOS, getDrives, setLaunchers } from "../store/actions";
 import { connect } from "react-redux";
-import FileScanner from "../scripts/CollectFiles";
-import steam from "../img/SteamLogo.svg";
-import { conditionalExpression } from "@babel/types";
-//import origin from "../img/Origin.svg";
+import FileScanner from "../scripts/CollectFiles"
+const launcherImg = require.context('../img/launchers',true)
+
 
 class DriveCheck extends React.Component {
     constructor(props) {
@@ -19,9 +18,8 @@ class DriveCheck extends React.Component {
         const username = scanner.GetUsername();
         scanner.GetOs().then(data => props.saveOS(data));
         props.getDrives(scanner.ScanDrives());
-        this.state ={
-            programs: scanner.ScanDriveGameLaunchers(username, "MAC")
-        }
+        scanner.GetOs().then(data =>scanner.ScanDriveGameLaunchers(username,data))
+        scanner.GetOs().then(data => scanner.GetFiles(props.app.launchers,data,username))
     }
 
     diskManager() {
@@ -69,10 +67,8 @@ class DriveCheck extends React.Component {
     }
 
     LauncherManager(classes) {
-        var programs = this.state.programs.programs
-        console.log(programs)
-        console.log(programs.length)
-        return programs.map(x => (
+        var launchers = this.props.app.launchers
+        return launchers.map(x => (
             <Grid
                 container
                 direction="row"
@@ -82,14 +78,7 @@ class DriveCheck extends React.Component {
                 className={classes.drive}
             >
                 <Grid item>
-                    <img src={steam} className={classes.logo} />
-                    <Typography
-                        variant="caption"
-                        style={{
-                            marginRight: "30px",
-                            verticalAlign: "middle"
-                        }}
-                    />
+                    <img src={launcherImg('./'+ x +'.svg')} className={classes.logo} />
                 </Grid>
                 <Grid item>
                     <ProgressBar width="260px" />
@@ -99,10 +88,8 @@ class DriveCheck extends React.Component {
     }
 
     render() {
-        //const drives = this.diskManager();
         const classes = this.props.classes;
         const Launchers = this.LauncherManager(classes);
-        console.log(Launchers)
         return (
             <div>
                 <Typography variant="h5" style={{ marginTop: "40px" }}>
@@ -110,8 +97,8 @@ class DriveCheck extends React.Component {
                 </Typography>
                 <Divider style={{ marginTop: "20px" }} variant="middle" />
                 <UserInfo
-                    email="afrenchrussian@gmail.com"
-                    id="1234"
+                    email={this.props.app.email}
+                    id={this.props.app.id}
                     os={this.props.app.os}
                     status={this.props.app.launchers.status}
                 />
@@ -133,7 +120,8 @@ const styles = theme =>
             marginTop: "20px"
         },
         logo: {
-            height: "70px"
+            height: "70px",
+            marginRight: "40px"
         }
     });
 

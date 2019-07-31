@@ -1,14 +1,15 @@
 import {
     TOGGLE_FULLSCREEN,
     TOGGLE_USER_STATUS,
-    SEND_USER_EMAIL,
+    SEND_USER_INFO,
     SEND_LOCATION,
     SAVEOS,
     GETDRIVES,
     SETLAUNCHERS
 } from "../types";
+import { arrowFunctionExpression } from "@babel/types";
 
-const initialState = {
+var initialState = {
     fullscreen: 0,
     loggedIn: 0,
     email: "",
@@ -16,7 +17,8 @@ const initialState = {
     location: "Home",
     os: "",
     drives: {},
-    launchers: {status: "empty", programs: []}
+    launchers: [],
+    games: {}
 };
 
 export default (state = initialState, action) => {
@@ -45,10 +47,11 @@ export default (state = initialState, action) => {
                     loggedIn: 1
                 };
             }
-        case SEND_USER_EMAIL:
+        case SEND_USER_INFO:
             return {
                 ...state,
-                email: action.payload
+                email: action.payload[0],
+                id: action.payload[1]
             };
         case SEND_LOCATION:
             return {
@@ -66,9 +69,11 @@ export default (state = initialState, action) => {
                 drives: action.payload
             };
         case SETLAUNCHERS:
+            var curLaunchers = state.launchers
+            curLaunchers.push(action.payload)
             return {
                 ...state,
-                launchers: action.payload
+                launchers: curLaunchers
             };
         default:
             return initialState;

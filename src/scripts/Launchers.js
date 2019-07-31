@@ -4,7 +4,7 @@ export const sysLaunchers = {
     },
     MAC:{
         "steam": '/Users/UNAME/Library/Application\ Support/Steam/steamapps/common/',
-        "origin": '/XXY'
+        "origin":'/Users/UNAME/ARSE'
     },
     LIN:{
 

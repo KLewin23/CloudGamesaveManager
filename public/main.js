@@ -71,12 +71,16 @@ ipcMain.on('getOs',(event, arg)=>{
 
 ipcMain.on("checkLaunchers", (event, arg) => {
     if(fs.existsSync(arg)){
-        event.sender.send('return', "exists")
+        event.returnValue = ('return', "exists")
     }else{
-        event.sender.send('return', 'not exists')
+        event.returnValue = ('return', 'not exists')
     }
 });
 
 ipcMain.on("getUsername",(event,arg)=>{
     event.returnValue = username
+})
+
+ipcMain.on("getFiles",(event,arg)=>{
+    event.returnValue = fs.readdirSync(arg)
 })

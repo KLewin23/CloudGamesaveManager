@@ -1,7 +1,7 @@
 import {
     TOGGLE_FULLSCREEN,
     TOGGLE_USER_STATUS,
-    SEND_USER_EMAIL,
+    SEND_USER_INFO,
     SEND_LOCATION,
     SAVEOS,
     GETDRIVES,
@@ -18,8 +18,8 @@ export const toggleUserStatus = payload => ({
     payload
 })
 
-export const sendUserEmail = payload => ({
-        type: SEND_USER_EMAIL,
+export const sendUserInfo = payload => ({
+        type: SEND_USER_INFO,
         payload
 })
 

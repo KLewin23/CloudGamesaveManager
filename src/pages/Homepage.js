@@ -5,7 +5,7 @@ import Logo from "../img/logo.svg";
 import Typeography from "@material-ui/core/Typography";
 import Button from "../componants/Button";
 import { GoogleLogin } from 'react-google-login'
-import {toggleUserStatus,sendUserEmail,sendLocation} from '../store/actions'
+import {toggleUserStatus,sendUserInfo,sendLocation} from '../store/actions'
 import { connect } from 'react-redux'
 
 const { ipcRenderer } = window.require("electron");
@@ -13,7 +13,7 @@ const { ipcRenderer } = window.require("electron");
 function signIn(props,email,googleId) {
     ipcRenderer.send("find-drives");
     props.toggleUserStatus()
-    props.sendUserEmail(email)
+    props.sendUserInfo([email,googleId])
     props.sendLocation('Drive Check')
     props.history.push('/driveCheck')
 }
@@ -88,7 +88,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
     toggleUserStatus,
-    sendUserEmail,
+    sendUserInfo,
     sendLocation
 };
 export default connect(
