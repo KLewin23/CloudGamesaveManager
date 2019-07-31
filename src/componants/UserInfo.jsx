@@ -8,6 +8,8 @@ function UserInfoBar(props) {
             <Grid container direction="column" className={classes.grid}>
                 <Grid item><Typography className={classes.info} variant="caption">{"Email: " + props.email}</Typography></Grid>
                 <Grid item><Typography className={classes.info} variant="caption">{"Id: " + props.id}</Typography></Grid>
+                <Grid item><Typography className={classes.info} variant="caption">{"OS: " + props.os}</Typography></Grid>
+                <Grid item><Typography className={classes.info} variant="caption">{"Staus: " + props.status}</Typography></Grid>
             </Grid>
         </div>
     );

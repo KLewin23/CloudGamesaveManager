@@ -2,7 +2,10 @@ import {
     TOGGLE_FULLSCREEN,
     TOGGLE_USER_STATUS,
     SEND_USER_EMAIL,
-    SEND_LOCATION
+    SEND_LOCATION,
+    SAVEOS,
+    GETDRIVES,
+    SETLAUNCHERS
 } from "../types";
 
 const initialState = {
@@ -10,7 +13,10 @@ const initialState = {
     loggedIn: 0,
     email: "",
     id: "",
-    location: "Home"
+    location: "Home",
+    os: "",
+    drives: {},
+    launchers: {status: "empty", programs: []}
 };
 
 export default (state = initialState, action) => {
@@ -39,7 +45,6 @@ export default (state = initialState, action) => {
                     loggedIn: 1
                 };
             }
-
         case SEND_USER_EMAIL:
             return {
                 ...state,
@@ -49,6 +54,21 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 location: action.payload
+            };
+        case SAVEOS:
+            return {
+                ...state,
+                os: action.payload
+            };
+        case GETDRIVES:
+            return {
+                ...state,
+                drives: action.payload
+            };
+        case SETLAUNCHERS:
+            return {
+                ...state,
+                launchers: action.payload
             };
         default:
             return initialState;

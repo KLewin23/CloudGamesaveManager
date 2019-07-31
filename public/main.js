@@ -2,6 +2,7 @@ const drivelist = require('drivelist')
 const { ipcMain, app, BrowserWindow } = require("electron");
 const fs = require('fs')
 const os_name = require('os-name')
+const username = require("os").userInfo().username
 
 require("electron-reload")(__dirname);
 
@@ -17,7 +18,7 @@ function createWindow() {
         center: true
     });
     win.loadURL("http://localhost:3000/");
-    //win.setResizable(false)
+    win.setResizable(false)
     win.webContents.openDevTools();
     // and load the index.html of the app.     win.loadFile('index.html')
 }
@@ -69,9 +70,13 @@ ipcMain.on('getOs',(event, arg)=>{
 })
 
 ipcMain.on("checkLaunchers", (event, arg) => {
-    if(fs.existsSync('/Users')){
-        event.sender.send('return', 'exists')
+    if(fs.existsSync(arg)){
+        event.sender.send('return', "exists")
     }else{
         event.sender.send('return', 'not exists')
     }
 });
+
+ipcMain.on("getUsername",(event,arg)=>{
+    event.returnValue = username
+})

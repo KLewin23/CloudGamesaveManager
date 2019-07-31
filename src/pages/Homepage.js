@@ -26,7 +26,6 @@ function Homepage(props) {
         var googleId = response.googleId;
         signIn(props,email,googleId)
     }
-
     return (
         <header className={classes.AppHeader}>
             <img src={Logo} alt="xx" className={classes.logo} />
