@@ -5,9 +5,9 @@ import {
     SEND_LOCATION,
     SAVEOS,
     GETDRIVES,
-    SETLAUNCHERS
+    SETLAUNCHERS,
+    SET_GAME_PATHS
 } from "../types";
-import { arrowFunctionExpression } from "@babel/types";
 
 var initialState = {
     fullscreen: 0,
@@ -18,7 +18,8 @@ var initialState = {
     os: "",
     drives: {},
     launchers: [],
-    games: {}
+    games: {},
+    gamePaths: {}
 };
 
 export default (state = initialState, action) => {
@@ -75,6 +76,11 @@ export default (state = initialState, action) => {
                 ...state,
                 launchers: curLaunchers
             };
+        case SET_GAME_PATHS:
+            return {
+                ...state,
+                gamePaths: action.payload
+            }
         default:
             return initialState;
     }

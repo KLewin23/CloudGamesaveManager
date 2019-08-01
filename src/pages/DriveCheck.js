@@ -5,11 +5,15 @@ import ProgressBar from "../componants/ProgressBar";
 import { Typography, Divider, Grid } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHdd } from "@fortawesome/free-solid-svg-icons";
-import { saveOS, getDrives, setLaunchers } from "../store/actions";
+import {
+    saveOS,
+    getDrives,
+    setLaunchers,
+    addDriveCheckMessage
+} from "../store/actions";
 import { connect } from "react-redux";
-import FileScanner from "../scripts/CollectFiles"
-const launcherImg = require.context('../img/launchers',true)
-
+import FileScanner from "../scripts/CollectFiles";
+const launcherImg = require.context("../img/launchers", true);
 
 class DriveCheck extends React.Component {
     constructor(props) {
@@ -18,9 +22,18 @@ class DriveCheck extends React.Component {
         const username = scanner.GetUsername();
         scanner.GetOs().then(data => props.saveOS(data));
         props.getDrives(scanner.ScanDrives());
-        scanner.GetOs().then(data =>scanner.ScanDriveGameLaunchers(username,data))
-        scanner.GetOs().then(data => scanner.GetFiles(props.app.launchers,data,username))
-        console.log(props.app.launchers)
+        scanner
+            .GetOs()
+            .then(data => scanner.ScanDriveGameLaunchers(username, data));
+        props.addDriveCheckMessage({
+            launcher: "",
+            message: "Searching for games.."
+        });
+        scanner
+            .GetOs()
+            .then(data =>
+                scanner.GetFiles(props.app.launchers, data, username)
+            );
     }
 
     diskManager() {
@@ -68,7 +81,8 @@ class DriveCheck extends React.Component {
     }
 
     LauncherManager(classes) {
-        var launchers = this.props.app.launchers
+        var launchers = this.props.app.launchers;
+        var messages = this.props.drive.progressMessages;
         return launchers.map(x => (
             <Grid
                 container
@@ -79,9 +93,13 @@ class DriveCheck extends React.Component {
                 className={classes.drive}
             >
                 <Grid item>
-                    <img src={launcherImg('./'+ x[0] +'.svg')} className={classes.logo} />
+                    <img
+                        src={launcherImg("./" + x[0] + ".svg")}
+                        className={classes.logo}
+                    />
                 </Grid>
                 <Grid item>
+                    <Typography className={classes.message} variant="caption">{messages[x[0]]}</Typography>
                     <ProgressBar width="260px" />
                 </Grid>
             </Grid>
@@ -123,19 +141,25 @@ const styles = theme =>
         logo: {
             height: "70px",
             marginRight: "40px"
+        },
+        message: {
+            fontWeight: "bold",
+            marginBottom: "6px"
         }
     });
 
 const mapStateToProps = state => {
     return {
-        app: state.appReducer
+        app: state.appReducer,
+        drive: state.drivecheckReducer
     };
 };
 
 const mapDispatchToProps = {
     saveOS,
     getDrives,
-    setLaunchers
+    setLaunchers,
+    addDriveCheckMessage
 };
 export default connect(
     mapStateToProps,

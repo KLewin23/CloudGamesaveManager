@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import homescreen from './homescreenReducer';
+import drivecheckReducer from './DriveCheckReducer.js';
 import appReducer from './appReducer';
 
 export default combineReducers({
-  homescreen,
+  drivecheckReducer,
   appReducer
 });

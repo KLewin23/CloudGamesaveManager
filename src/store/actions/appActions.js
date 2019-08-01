@@ -6,6 +6,7 @@ import {
     SAVEOS,
     GETDRIVES,
     SETLAUNCHERS,
+    SET_GAME_PATHS,
 } from '../types';
 
 export const toggleFullscreen = payload => ({
@@ -40,5 +41,10 @@ export const getDrives = payload => ({
 
 export const setLaunchers = payload => ({
     type: SETLAUNCHERS,
+    payload
+})
+
+export const setGamePaths = payload =>({
+    type: SET_GAME_PATHS,
     payload
 })
