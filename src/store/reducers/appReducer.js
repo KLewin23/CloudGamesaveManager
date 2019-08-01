@@ -70,7 +70,7 @@ export default (state = initialState, action) => {
             };
         case SETLAUNCHERS:
             var curLaunchers = state.launchers
-            curLaunchers.push(action.payload)
+            curLaunchers.push([action.payload[0],action.payload[1]])
             return {
                 ...state,
                 launchers: curLaunchers

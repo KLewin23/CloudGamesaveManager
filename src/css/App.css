@@ -18,3 +18,7 @@
 .TopBar-topbar-1 {
   -webkit-app-region: drag;
 }
+
+.TopBar-controls-3{
+  -webkit-app-region: no-drag;
+}

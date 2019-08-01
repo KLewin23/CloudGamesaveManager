@@ -20,6 +20,7 @@ class DriveCheck extends React.Component {
         props.getDrives(scanner.ScanDrives());
         scanner.GetOs().then(data =>scanner.ScanDriveGameLaunchers(username,data))
         scanner.GetOs().then(data => scanner.GetFiles(props.app.launchers,data,username))
+        console.log(props.app.launchers)
     }
 
     diskManager() {
@@ -78,7 +79,7 @@ class DriveCheck extends React.Component {
                 className={classes.drive}
             >
                 <Grid item>
-                    <img src={launcherImg('./'+ x +'.svg')} className={classes.logo} />
+                    <img src={launcherImg('./'+ x[0] +'.svg')} className={classes.logo} />
                 </Grid>
                 <Grid item>
                     <ProgressBar width="260px" />

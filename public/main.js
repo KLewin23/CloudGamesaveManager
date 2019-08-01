@@ -11,11 +11,12 @@ function createWindow() {
     win = new BrowserWindow({
         width: 470,
         height: 626,
-        frame: false,
         webPreferences: {
             nodeIntegration: true
         },
-        center: true
+        center: true,
+        autoHideMenuBar: true,
+        frame:false
     });
     win.loadURL("http://localhost:3000/");
     win.setResizable(false)
@@ -61,7 +62,7 @@ ipcMain.on("getDrives", (event, arg) => {
             event.returnValue = result;
         })
         .catch(function(err){
-            console.log(err)
+            //console.log(err)
         })
 });
 

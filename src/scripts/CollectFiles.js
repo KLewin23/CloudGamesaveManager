@@ -13,7 +13,22 @@ export default class FileScanner extends React.Component {
     ScanDriveGameLaunchers(username, system) {
         var launchers = Launchers[system];
         if (system === "WIN") {
-            const drives = this.ScanDrives();
+            var drivesInfo = this.ScanDrives();
+            var drives = []
+            for (var drive in drivesInfo) {
+                var driveLetter = drivesInfo[drive].mountpoints[0].path
+                drives.push(driveLetter)
+            }
+            for (var letter in drives) {
+                for (var launcher in launchers) {
+                    var path = launchers[launcher].replace("DRIVE", drives[letter])
+                    this.CheckLocationExistance(
+                        path,
+                        launcher
+                    )
+                }
+            }
+
         } else if (system === "MAC") {
             for (var x in launchers) {
                 //console.log(launchers[x].replace("UNAME", username))
@@ -28,17 +43,17 @@ export default class FileScanner extends React.Component {
     CheckLocationExistance(path, launcher) {
         var value = ipcRenderer.sendSync("checkLaunchers", path);
         if (value === "exists") {
-            store.dispatch(setLaunchers(launcher));
+            store.dispatch(setLaunchers([launcher,path]));
         }
     }
 
     GetOs() {
         return new Promise((resolve, reject) => {
             ipcRenderer.send("getOs");
-            ipcRenderer.on("returnOs", function(even, data) {
+            ipcRenderer.on("returnOs", function (even, data) {
                 if (data.includes("MACOS")) {
                     resolve("MAC");
-                } else if (data.include("WIN")) {
+                } else if (data.includes("WIN")) {
                     resolve("WIN");
                 }
             });
@@ -50,20 +65,18 @@ export default class FileScanner extends React.Component {
         return value;
     }
 
-    GetFiles(launchers,system,username) {
+    GetFiles(launchers, system, username) {
         var games = {}
-        
         for (var launcher in launchers) {
-            var path = Launchers[system][launchers[launcher]]
-
-            var value = ipcRenderer.sendSync("getFiles", path.replace("UNAME", username));
+            var path = launchers[launcher][1]
+            var value = ipcRenderer.sendSync("getFiles", path);
             for (var i in value) {
                 if (value[i].startsWith(".")) {
                     delete value[i];
                 }
             }
-            games[launchers[launcher]] = [value]
+            games[launchers[launcher][0]] = [value]
         }
-        console.log(games);
+        console.log(games)
     }
 }
