@@ -20,20 +20,21 @@ class DriveCheck extends React.Component {
         super(props);
         const scanner = new FileScanner();
         const username = scanner.GetUsername();
-        scanner.GetOs().then(data => props.saveOS(data));
-        props.getDrives(scanner.ScanDrives());
         scanner
             .GetOs()
-            .then(data => scanner.ScanDriveGameLaunchers(username, data));
-        props.addDriveCheckMessage({
-            launcher: "",
-            message: "Searching for games.."
-        });
-        scanner
-            .GetOs()
-            .then(data =>
-                scanner.GetFiles(props.app.launchers, data, username)
-            );
+            .then(data => props.saveOS(data))
+            .then(() => props.getDrives(scanner.ScanDrives()))
+            .then(() => scanner.GetOs())
+            .then(data => scanner.ScanDriveGameLaunchers(username, data))
+            .then(() =>
+                props.addDriveCheckMessage({
+                    launcher: "",
+                    message: "Searching for games.."
+                })
+            )
+            .then(() => scanner.GetOs())
+            .then(data => scanner.GetFiles(props.app.launchers, data, username))
+            .then(() => scanner.SearchComplete());
     }
 
     diskManager() {
@@ -99,7 +100,9 @@ class DriveCheck extends React.Component {
                     />
                 </Grid>
                 <Grid item>
-                    <Typography className={classes.message} variant="caption">{messages[x[0]]}</Typography>
+                    <Typography className={classes.message} variant="caption">
+                        {messages[x[0]]}
+                    </Typography>
                     <ProgressBar width="260px" />
                 </Grid>
             </Grid>
@@ -139,7 +142,7 @@ const styles = theme =>
             marginTop: "20px"
         },
         logo: {
-            height: "70px",
+            height: "50px",
             marginRight: "40px"
         },
         message: {

@@ -71,11 +71,11 @@ export default class FileScanner extends React.Component {
         var gamePaths = {};
         var installedGames = {};
         for (var launcher in launchers) {
-            var path = launchers[launcher][1];
+            var path = launchers[launcher][1].replace('UNAME',username);
             var value = ipcRenderer.sendSync("getFiles", path);
             for (var i in value) {
                 if (value[i].startsWith(".")) {
-                    //value.splice(value[i], 1);
+                    value.splice(value[i], 1);
                 }
             }
             installedGames[launchers[launcher][0]] = [value];
@@ -101,5 +101,9 @@ export default class FileScanner extends React.Component {
             }
             store.dispatch(setGamePaths(gamePaths));
         }
+    }
+
+    SearchComplete(){
+        //ipcRenderer.sendSync("main-screen");
     }
 }
