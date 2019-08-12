@@ -26,15 +26,15 @@ class DriveCheck extends React.Component {
             .then(() => props.getDrives(scanner.ScanDrives()))
             .then(() => scanner.GetOs())
             .then(data => scanner.ScanDriveGameLaunchers(username, data))
-            .then(() =>
-                props.addDriveCheckMessage({
-                    launcher: "",
-                    message: "Searching for games.."
-                })
-            )
+            // .then(() =>
+            //     props.addDriveCheckMessage({
+            //         launcher: "",
+            //         message: "Searching for games.."
+            //     })
+            // )
             .then(() => scanner.GetOs())
             .then(data => scanner.GetFiles(props.app.launchers, data, username))
-            .then(() => scanner.SearchComplete());
+            //.then(() => scanner.SearchComplete());
     }
 
     diskManager() {

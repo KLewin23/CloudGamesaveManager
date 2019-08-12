@@ -79,13 +79,13 @@ export default class FileScanner extends React.Component {
                 }
             }
             installedGames[launchers[launcher][0]] = [value];
-            if(value.length === 0){
-                store.dispatch(addDriveCheckMessage({launcher:launchers[launcher][0],message: "Found 0 games"}))
-            } else if(value.length === 1){
-                store.dispatch(addDriveCheckMessage({launcher:launchers[launcher][0],message: "Found " + value.length + " game"}))
-            } else{
-                store.dispatch(addDriveCheckMessage({launcher:launchers[launcher][0],message: "Found " + value.length + " games"}))
-            }
+            // if(value.length === 0){
+            //     store.dispatch(addDriveCheckMessage({launcher:launchers[launcher][0],message: "Found 0 games"}))
+            // } else if(value.length === 1){
+            //     store.dispatch(addDriveCheckMessage({launcher:launchers[launcher][0],message: "Found " + value.length + " game"}))
+            // } else{
+            //     store.dispatch(addDriveCheckMessage({launcher:launchers[launcher][0],message: "Found " + value.length + " games"}))
+            // }
         }
         for (var launcher in installedGames) {
             var launcherGames = installedGames[launcher];
