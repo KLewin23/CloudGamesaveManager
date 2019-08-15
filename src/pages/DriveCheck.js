@@ -12,44 +12,51 @@ import {
     addDriveCheckMessage
 } from "../store/actions";
 import { connect } from "react-redux";
-import FileScanner from "../scripts/CollectFiles";
+import { FileScanner, sleep } from "../scripts";
 const launcherImg = require.context("../img/launchers", true);
 
 class DriveCheck extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            components: "",
+            stage: ""
+        };
         const scanner = new FileScanner();
         const username = scanner.GetUsername();
         scanner
             .GetOs()
             .then(data => props.saveOS(data))
-            .then(() => props.getDrives(scanner.ScanDrives()))
-            .then(() => scanner.GetOs())
-            .then(data => scanner.ScanDriveGameLaunchers(username, data))
-            // .then(() =>
-            //     props.addDriveCheckMessage({
-            //         launcher: "",
-            //         message: "Searching for games.."
-            //     })
-            // )
-            .then(() => scanner.GetOs())
-            .then(data => scanner.GetFiles(props.app.launchers, data, username))
-            //.then(() => scanner.SearchComplete());
+            .then(() => {
+                props.getDrives(scanner.ScanDrives());
+                this.setState({ components: this.diskManager() });
+            })
+            .then(() => sleep(2000))
+            .then(() => {
+                props.getDrives(scanner.ScanDrives());
+                scanner.ScanDriveGameLaunchers(username, scanner.GetOs());
+                this.setState({ components: this.LauncherManager()});
+            })
+            .then(() => sleep(2000))
+            .then(() => {
+                this.setState({ stage: "complete" });
+                scanner.GetFiles(
+                    props.app.launchers,
+                    scanner.GetOs(),
+                    username
+                );
+                scanner.SearchComplete();
+            });
     }
 
     diskManager() {
-        var drives = [];
-        for (var i in this.props.app.drives) {
-            if (
-                this.props.app.drives[i].description !=
-                "APPLE SSD AP0512M Media"
-            ) {
-                drives.push({
-                    key: i,
-                    name: this.props.app.drives[i].description
-                });
-            }
-        }
+        const drives = this.props.app.drives
+            .filter(drive => drive.description !== "APPLE SSD AP0512M Media")
+            .map(drive => ({
+                key: drive,
+                name: drive.description
+            }));
+
         return drives.map(x => (
             <Grid
                 container
@@ -71,19 +78,18 @@ class DriveCheck extends React.Component {
                             verticalAlign: "middle"
                         }}
                     >
-                        {x.name}
+                        {`Drive ${x.name}  - Found`}
                     </Typography>
-                </Grid>
-                <Grid item>
-                    <ProgressBar width="260px" />
                 </Grid>
             </Grid>
         ));
     }
 
-    LauncherManager(classes) {
-        var launchers = this.props.app.launchers;
-        var messages = this.props.drive.progressMessages;
+    LauncherManager() {
+        const launchers = this.props.app.launchers;
+        const messages = this.props.drive.progressMessages;
+        const classes = this.props.classes;
+        console.log(launchers)
         return launchers.map(x => (
             <Grid
                 container
@@ -103,15 +109,13 @@ class DriveCheck extends React.Component {
                     <Typography className={classes.message} variant="caption">
                         {messages[x[0]]}
                     </Typography>
-                    <ProgressBar width="260px" />
                 </Grid>
             </Grid>
         ));
     }
 
-    render() {
-        const classes = this.props.classes;
-        const Launchers = this.LauncherManager(classes);
+    render(){
+        const stage = this.state.components;
         return (
             <div>
                 <Typography variant="h5" style={{ marginTop: "40px" }}>
@@ -125,7 +129,7 @@ class DriveCheck extends React.Component {
                     status={this.props.app.launchers.status}
                 />
                 <Divider style={{ marginTop: "20px" }} variant="middle" />
-                {Launchers}
+                {stage}
             </div>
         );
     }
@@ -154,7 +158,7 @@ const styles = theme =>
 const mapStateToProps = state => {
     return {
         app: state.appReducer,
-        drive: state.drivecheckReducer
+        drive: state.driveCheckReducer
     };
 };
 

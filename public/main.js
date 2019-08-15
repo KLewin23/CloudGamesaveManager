@@ -1,8 +1,8 @@
-const drivelist = require('drivelist')
+const drivelist = require("drivelist");
 const { ipcMain, app, BrowserWindow } = require("electron");
-const fs = require('fs')
-const os_name = require('os-name')
-const username = require("os").userInfo().username
+const fs = require("fs");
+const os_name = require("os-name");
+const username = require("os").userInfo().username;
 
 require("electron-reload")(__dirname);
 
@@ -16,10 +16,10 @@ function createWindow() {
         },
         center: true,
         autoHideMenuBar: true,
-        frame:false
+        frame: false
     });
     win.loadURL("http://localhost:3000/");
-    win.setResizable(false)
+    win.setResizable(false);
     win.webContents.openDevTools();
     // and load the index.html of the app.     win.loadFile('index.html')
 }
@@ -57,31 +57,32 @@ ipcMain.on("toggle_maximize", (event, arg) => {
 });
 
 ipcMain.on("getDrives", (event, arg) => {
-    drivelist.list()
-        .then(function(result){
+    drivelist
+        .list()
+        .then(result => {
             event.returnValue = result;
         })
-        .catch(function(err){
-            //console.log(err)
-        })
+        .catch(err => {
+            console.log(err)
+        });
 });
 
-ipcMain.on('getOs',(event, arg)=>{
-    event.sender.send('returnOs', os_name().toUpperCase())
-})
+ipcMain.on("getOs", (event, arg) => {
+    event.sender.send("returnOs", os_name().toUpperCase());
+});
 
 ipcMain.on("checkLaunchers", (event, arg) => {
-    if(fs.existsSync(arg)){
-        event.returnValue = ('return', "exists")
-    }else{
-        event.returnValue = ('return', 'not exists')
+    if (fs.existsSync(arg)) {
+        event.returnValue = ("return", "exists");
+    } else {
+        event.returnValue = ("return", "not exists");
     }
 });
 
-ipcMain.on("getUsername",(event,arg)=>{
-    event.returnValue = username
-})
+ipcMain.on("getUsername", (event, arg) => {
+    event.returnValue = username;
+});
 
-ipcMain.on("getFiles",(event,arg)=>{
-    event.returnValue = fs.readdirSync(arg)
-})
+ipcMain.on("getFiles", (event, arg) => {
+    event.returnValue = fs.readdirSync(arg);
+});

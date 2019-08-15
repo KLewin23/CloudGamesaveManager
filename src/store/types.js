@@ -9,6 +9,7 @@ export const SETMESSAGE = "SETMESSAGE"
 export const SETLAUNCHERS = "SETLAUNCHERS"
 export const SET_GAME_PATHS = "SET_GAME_PATHS";
 export const ADD_MESSAGE = "ADD_MESSAGE";
+export const CHANGE_STAGE = "CHANGE_STAGE";
 
 
 // settings

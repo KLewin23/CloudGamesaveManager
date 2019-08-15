@@ -9,21 +9,20 @@ import {
     SET_GAME_PATHS
 } from "../types";
 
-var initialState = {
+const initialState = {
     fullscreen: 0,
     loggedIn: 0,
     email: "",
     id: "",
     location: "Home",
     os: "",
-    drives: {},
+    drives: [],
     launchers: [],
     games: {},
     gamePaths: {}
 };
 
 export default (state = initialState, action) => {
-    console.log(state,action)
     switch (action.type) {
         case TOGGLE_FULLSCREEN:
             if (state.fullscreen === 1) {
@@ -83,6 +82,6 @@ export default (state = initialState, action) => {
                 gamePaths: action.payload
             }
         default:
-            return initialState;
+            return state;
     }
 };

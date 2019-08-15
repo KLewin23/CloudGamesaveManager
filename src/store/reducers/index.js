@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import drivecheckReducer from './DriveCheckReducer.js';
+import driveCheckReducer from './DriveCheckReducer';
 import appReducer from './appReducer';
 
 export default combineReducers({
-  drivecheckReducer,
-  appReducer
+  driveCheckReducer : driveCheckReducer,
+  appReducer : appReducer
 });
