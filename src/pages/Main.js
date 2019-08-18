@@ -1,7 +1,12 @@
 import React from "react";
 import { withStyles, createStyles } from "@material-ui/styles";
+import {Typography} from "@material-ui/core";
 
-function Main() {}
+function Main() {
+    return(
+        <Typography>xd</Typography>
+    )
+}
 
 const styles = theme =>
     createStyles({

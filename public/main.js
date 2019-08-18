@@ -60,10 +60,11 @@ ipcMain.on("getDrives", (event, arg) => {
     drivelist
         .list()
         .then(result => {
+            //event.sender.send("returnDrives", result);
             event.returnValue = result;
         })
         .catch(err => {
-            console.log(err)
+            console.log(err);
         });
 });
 

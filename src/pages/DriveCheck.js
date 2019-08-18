@@ -26,27 +26,30 @@ class DriveCheck extends React.Component {
         const username = scanner.GetUsername();
         scanner
             .GetOs()
-            .then(data => props.saveOS(data))
+            .then(data => {
+                props.saveOS(data);
+            })
             .then(() => {
                 props.getDrives(scanner.ScanDrives());
                 this.setState({ components: this.diskManager() });
             })
             .then(() => sleep(2000))
             .then(() => {
-                props.getDrives(scanner.ScanDrives());
-                scanner.ScanDriveGameLaunchers(username, scanner.GetOs());
-                this.setState({ components: this.LauncherManager()});
+                this.setState({ components: "" });
+                scanner.ScanDriveGameLaunchers(username, this.props.app);
+                this.setState({ components: this.LauncherManager() });
             })
             .then(() => sleep(2000))
             .then(() => {
                 this.setState({ stage: "complete" });
                 scanner.GetFiles(
                     props.app.launchers,
-                    scanner.GetOs(),
+                    this.props.app.os,
                     username
                 );
                 scanner.SearchComplete();
-            });
+            })
+            .then(()=>props.history.push('/main'))
     }
 
     diskManager() {
@@ -87,9 +90,7 @@ class DriveCheck extends React.Component {
 
     LauncherManager() {
         const launchers = this.props.app.launchers;
-        const messages = this.props.drive.progressMessages;
         const classes = this.props.classes;
-        console.log(launchers)
         return launchers.map(x => (
             <Grid
                 container
@@ -106,15 +107,15 @@ class DriveCheck extends React.Component {
                     />
                 </Grid>
                 <Grid item>
-                    <Typography className={classes.message} variant="caption">
-                        {messages[x[0]]}
+                    <Typography className={classes.message} variant="caption" style={{textTransform: "capitalize"}}>
+                        {`${x[0]} found`}
                     </Typography>
                 </Grid>
             </Grid>
         ));
     }
 
-    render(){
+    render() {
         const stage = this.state.components;
         return (
             <div>
