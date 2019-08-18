@@ -50,6 +50,7 @@ class DriveCheck extends React.Component {
                 scanner.SearchComplete();
             })
             .then(()=>props.history.push('/main'))
+            .catch((err)=> console.log(err));
     }
 
     diskManager() {

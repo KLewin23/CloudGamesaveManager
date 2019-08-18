@@ -1,7 +1,7 @@
 import React from "react";
 import GoogleButton from "react-google-button";
 import { withStyles, createStyles } from "@material-ui/core/styles";
-import Logo from "../img/logo.svg";
+import Logo from "../img/Logo_v2.png";
 import Typeography from "@material-ui/core/Typography";
 import Button from "../componants/Button";
 import { GoogleLogin } from 'react-google-login'
@@ -29,9 +29,6 @@ function Homepage(props) {
     return (
         <header className={classes.AppHeader}>
             <img src={Logo} alt="xx" className={classes.logo} />
-            <Typeography className={classes.title}>
-                Cloud Save Manager
-            </Typeography>
             <GoogleLogin
                 clientId="522213692282-vunu5kbjm3fehg8du5cmltebp8gjrfvt.apps.googleusercontent.com"
                 render={renderProps => (
@@ -72,7 +69,9 @@ const styles = theme =>
         logo: {
             marginTop: "70px",
             marginBottom: "50px",
-            height: "100px"
+            height: "150px",
+            width: "240px",
+            margin: "auto"
         },
         title: {
             color: "black",
