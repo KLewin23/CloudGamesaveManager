@@ -16,7 +16,7 @@ function createWindow() {
         },
         center: true,
         autoHideMenuBar: true,
-        frame: false
+        //frame: false
     });
     win.loadURL("http://localhost:3000/");
     win.setResizable(false);
@@ -55,6 +55,12 @@ ipcMain.on("toggle_maximize", (event, arg) => {
         win.maximize();
     }
 });
+
+ipcMain.on("fill", (event , arg) => {
+    //win.setFullScreen(true)
+    win.setResizable(true);
+    win.maximize();
+})
 
 ipcMain.on("getDrives", (event, arg) => {
     drivelist

@@ -10,7 +10,8 @@ export default class App extends React.Component {
     render() {
         return (
             <div className="App">
-                <TopBar/>
+                {//<TopBar/>
+                    }
                 <BrowserRouter>
                     <Route exact path="/" component={Homepage} />
                     <Route exact path="/driveCheck" component={DriveCheck}/>

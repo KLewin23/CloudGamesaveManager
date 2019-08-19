@@ -101,7 +101,7 @@ export class FileScanner extends React.Component {
     }
 
     SearchComplete() {
-        ipcRenderer.send("toggle_maximize");
+        ipcRenderer.send("fill");
         store.dispatch(toggleFullscreen())
         store.dispatch(sendLocation('Main'));
 
