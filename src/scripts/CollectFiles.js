@@ -100,10 +100,11 @@ export class FileScanner extends React.Component {
         });
     }
 
-    SearchComplete() {
-        ipcRenderer.send("fill");
-        store.dispatch(toggleFullscreen())
-        store.dispatch(sendLocation('Main'));
+    SearchComplete(username) {
+        console.log(ipcRenderer.sendSync("checkLaunchers",`/Users/UNAME/Library/Application\ Support/Steam/steamapps/common/`.replace("UNAME",username)));
+        //ipcRenderer.send("fill");
+        //store.dispatch(toggleFullscreen())
+        //store.dispatch(sendLocation('Main'));
 
     }
 }

@@ -47,7 +47,7 @@ class DriveCheck extends React.Component {
                     this.props.app.os,
                     username
                 );
-                scanner.SearchComplete();
+                scanner.SearchComplete(username);
             })
             .then(()=>props.history.push('/main'))
             .catch((err)=> console.log(err));
