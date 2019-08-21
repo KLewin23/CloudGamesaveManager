@@ -9,7 +9,7 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "electron-start": "electron .",
-    "dev": "ELECTRON_URL=http://localhost:3000/ nodemonnpm --exec npm run electron-start",
+    "dev": "nodemonnpm --exec npm run electron-start ",
     "pack": "electron-builder --dir",
     "dist": "electron-builder"
   },
@@ -86,6 +86,16 @@
           "path": "/Desktop"
         }
       ]
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ]
+    },
+    "win": {
+      "target": "squirrel",
+      "icon": "build/icon.ico"
     }
   }
 }

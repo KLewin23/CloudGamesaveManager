@@ -18,7 +18,7 @@ function createWindow() {
         autoHideMenuBar: true,
         //frame: false
     });
-    win.loadURL();//"http://localhost:3000/"process.env
+    win.loadURL('http://localhost:3000/');
     win.setResizable(false);
     win.webContents.openDevTools();
     // and load the index.html of the app.     win.loadFile('index.html')
