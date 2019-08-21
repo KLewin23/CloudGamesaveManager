@@ -8,17 +8,6 @@ matrix:
         - ELECTRON_CACHE=$HOME/.cache/electron
         - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
 
-    # Windows currently doesn't support encrypted variables.
-    # Once supported uncomment this out & remove build with Docker
-    #
-    #- os: windows
-    #  language: node_js
-    #  node_js: "8"
-
-    #- os: linux
-      #services: docker
-      #language: generic
-
 cache:
   npm: true
   directories:
@@ -35,7 +24,9 @@ before_cache:
 
 branches:
   except:
-    - "/^v\\d+\\.\\d+\\.\\d+$/"
+    -Dev
+    only:
+      -master
 deploy:
   provider: releases
   api_key: "$GITHUB_TOKEN"
