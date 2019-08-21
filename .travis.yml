@@ -20,6 +20,7 @@ matrix:
       #language: generic
 
 cache:
+  npm: true
   directories:
     - node_modules
     - $HOME/.cache/electron
