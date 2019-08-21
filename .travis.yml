@@ -24,9 +24,9 @@ script:
 
 branches:
   except:
-    -Dev
-    only:
-      -master
+    - Dev
+  only:
+    - master
 
 before_deploy:
   # Set up git user name and tag this commit
