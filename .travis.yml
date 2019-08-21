@@ -8,10 +8,10 @@ matrix:
         - ELECTRON_CACHE=$HOME/.cache/electron
         - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
 
-before_install:
-  - sudo dpkg --add-architecture i386
-  - sudo apt-get -qq update
-  - sudo apt-get install wine1.6 # this is for building windows electron images
+#before_install:
+ # - sudo dpkg --add-architecture i386
+  #- sudo apt-get -qq update
+  #- sudo apt-get install wine1.6 # this is for building windows electron images
 
 cache:
   npm: true
