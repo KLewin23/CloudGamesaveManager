@@ -39,5 +39,3 @@ deploy:
   provider: releases
   api_key: "$GITHUB_TOKEN"
   file: $HOME/dist/*.dmg
-  on:
-    tags: true
