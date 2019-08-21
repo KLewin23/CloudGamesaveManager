@@ -15,12 +15,11 @@ matrix:
     #  language: node_js
     #  node_js: "8"
 
-    - os: linux
-      services: docker
-      language: generic
+    #- os: linux
+      #services: docker
+      #language: generic
 
 cache:
-  yarn: true
   directories:
     - node_modules
     - $HOME/.cache/electron
@@ -36,3 +35,7 @@ before_cache:
 branches:
   except:
     - "/^v\\d+\\.\\d+\\.\\d+$/"
+deploy:
+  provider: releases
+  api_key: "$GITHUB_TOKEN"
+  file: $HOME/dist/*.dmg
