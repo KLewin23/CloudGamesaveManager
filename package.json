@@ -65,7 +65,6 @@
         "webpack-dev-server": "^3.1.14"
     },
     "build": {
-        "author": "afrenchrussian@gmail.com",
         "appId": "test",
         "compression": "normal",
         "productName": "GSM",
