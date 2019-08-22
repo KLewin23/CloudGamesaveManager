@@ -15,7 +15,7 @@ cache:
   - '%APPDATA%\npm-cache'
 
 artifacts:
-  - path: "dist/GSM Setup *.*.*.txt"
+  - path: "dist/GSM Setup *.*.*.exe"
     name: "setup"
 
 install:
