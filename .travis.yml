@@ -39,4 +39,4 @@ deploy:
   api_key: "$GITHUB_TOKEN"
   skip_cleanup: true
   file:
-    - "./dist/"
+    - "./dist/*-*.*.*.dmg"
