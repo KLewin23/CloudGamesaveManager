@@ -16,8 +16,8 @@ cache:
     - $HOME/.cache/electron-builder
 
 script:
-  - npm install
-  - npm run dist
+  #- npm install
+  #- npm run dist
   - ls
   - ls ./dist
 
@@ -38,4 +38,4 @@ deploy:
   provider: releases
   api_key: "$GITHUB_TOKEN"
   skip_cleanup: true
-  file: dist/*-*.*.*.dmg
+  file: "package.json"
