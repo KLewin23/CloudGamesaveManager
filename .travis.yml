@@ -19,7 +19,7 @@ script:
   #- npm install
   #- npm run dist
   - ls
-  - ls ./dist
+  #- ls ./dist
 
 branches:
   except:
