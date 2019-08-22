@@ -19,9 +19,6 @@ script:
   - npm install
   - npm run dist
 
-#before_cache:
-  #- rm -rf $HOME/.cache/electron-builder/wine
-
 branches:
   except:
     - Dev
@@ -39,4 +36,4 @@ deploy:
   provider: releases
   api_key: "$GITHUB_TOKEN"
   file:
-    - $HOME/dist/
+    - "./dist/*.dmg"
