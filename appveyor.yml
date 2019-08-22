@@ -14,6 +14,10 @@ cache:
   - node_modules -> package.json
   - '%APPDATA%\npm-cache'
 
+artifacts:
+  - path: "dist/GSM Setup *.*.*.txt"
+    name: "setup"
+
 install:
   - ps: Install-Product node $env:nodejs_version
   - export TAG=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)}
@@ -24,6 +28,11 @@ build_script:
   - npm run dist
   - ls dist
 
-#deploy:
- # - provider: GitHub
-  #  release: $(TAG)
+deploy:
+  - provider: GitHub
+    release: $(appveyor_repo_tag_name)
+    artifact: "dist/GSM Setup *.*.*.txt"
+    draft: false
+    prerelease: false
+    auth_token:
+      secure: $(GITHUB_TOKEN)
