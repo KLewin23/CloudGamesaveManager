@@ -16,9 +16,14 @@ cache:
 
 install:
   - ps: Install-Product node $env:nodejs_version
+  - export TAG=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)}
   - npm install
 
 build_script:
   - npm install
   - npm run dist
   - ls dist
+
+#deploy:
+ # - provider: GitHub
+  #  release: $(TAG)
