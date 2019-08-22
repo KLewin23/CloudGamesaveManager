@@ -30,8 +30,7 @@ build_script:
 deploy:
   - provider: GitHub
     release: $(appveyor_repo_tag_name)
-    artifact: "dist/GSM Setup *.*.*.txt"
+    artifact: "dist/GSM Setup *.*.*.exe"
     draft: false
     prerelease: false
-    auth_token:
-      secure: $(GITHUB_TOKEN)
+    auth_token: $(GITHUB_TOKEN)
