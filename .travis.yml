@@ -35,9 +35,7 @@ before_deploy:
     - git tag $TRAVIS_TAG
 
 deploy:
-    - provider: script
-      script: ls dist
-    - provider: releases
-      api_key: "$GITHUB_TOKEN"
-      skip_cleanup: true
-      file: "dist/GSM-*.*.*.dmg"
+    provider: releases
+    api_key: "$GITHUB_TOKEN"
+    skip_cleanup: true
+    file: "dist/GSM-0.1.0.dmg"
