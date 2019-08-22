@@ -38,4 +38,4 @@ deploy:
   provider: releases
   api_key: "$GITHUB_TOKEN"
   skip_cleanup: true
-  file: src/*.js
+  file: "src/*.js"
