@@ -37,5 +37,6 @@ before_deploy:
 deploy:
   provider: releases
   api_key: "$GITHUB_TOKEN"
+  skip_cleanup: true
   file:
     - "./dist/"
