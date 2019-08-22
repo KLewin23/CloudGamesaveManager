@@ -1,0 +1,24 @@
+version: 0.1.5
+
+environment:
+  matrix:
+    - nodejs_version: "12.1.0"
+
+branches:
+  only:
+    - master
+  except:
+    - Dev
+
+cache:
+  - node_modules -> package.json
+  - '%APPDATA%\npm-cache'
+
+install:
+  - ps: Install-Product node $env:nodejs_version
+  - npm install
+
+build_script:
+  - npm install
+  - npm run dist
+  - ls dist
