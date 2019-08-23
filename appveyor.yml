@@ -1,5 +1,4 @@
-#version: 0.1.5.1
-
+version: 0.1.7
 environment:
   matrix:
     - nodejs_version: "12.1.0"
@@ -29,7 +28,7 @@ build_script:
 
 deploy:
   - provider: GitHub
-    release: $(appveyor_repo_tag_name)
+    release: 0.1.7
     artifact: "dist/GSM Setup *.*.*.exe"
     draft: false
     prerelease: false

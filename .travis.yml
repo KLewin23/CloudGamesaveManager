@@ -29,12 +29,10 @@ branches:
         - master
 
 before_deploy:
-    # Set up git user name and tag this commit
     - git config --local user.name "afrenchrussian"
     - git config --local user.email "afrenchrussian@gmail.com"
-    - export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)}
     - export FILE=$(ls dist/GSM-*.*.*.dmg)
-    - git tag $TRAVIS_TAG
+    - git tag GSM-0.1.7
 
 deploy:
     provider: releases
