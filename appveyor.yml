@@ -28,7 +28,7 @@ build_script:
 
 deploy:
   - provider: GitHub
-    release: 0.1.9
+    release: 0.1.9-Main
     draft: false
     prerelease: false
     auth_token: $(GITHUB_TOKEN)
