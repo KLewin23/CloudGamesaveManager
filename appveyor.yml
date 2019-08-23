@@ -28,7 +28,7 @@ build_script:
 
 deploy:
   - provider: GitHub
-    release: 0.1.7
+    release: 0.1.8
     artifact: "dist/GSM Setup *.*.*.exe"
     draft: false
     prerelease: false
