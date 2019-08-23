@@ -29,7 +29,6 @@ build_script:
 deploy:
   - provider: GitHub
     release: 0.1.9
-    artifact: "dist/GSM Setup *.*.*.exe"
     draft: false
     prerelease: false
     auth_token: $(GITHUB_TOKEN)
