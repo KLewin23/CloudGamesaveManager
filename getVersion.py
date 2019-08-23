@@ -7,6 +7,6 @@ fileJson = json.loads(file)
 
 string = "GSM-{0}"
 
-appBuild = os.getenv('APPVEYOR_BUILD_VERSION', 'nn.nn.nn')
-appBuild = string.format(fileJson["version"])
+os.environ['APP_VERSION'] = string.format(fileJson["version"])
+
 

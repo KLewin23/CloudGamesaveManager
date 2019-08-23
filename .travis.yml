@@ -32,7 +32,7 @@ before_deploy:
     - git config --local user.name "afrenchrussian"
     - git config --local user.email "afrenchrussian@gmail.com"
     - export FILE=$(ls dist/GSM-*.*.*.dmg)
-    - git tag GSM-0.1.9
+    - git tag GSM-0.1.9-Mac/Linux
 
 deploy:
     provider: releases
